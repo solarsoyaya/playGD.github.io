@@ -6,38 +6,59 @@ export default {
   data () {
     return {
       choseIndex: 0,
-      choseList: ['全部', '广州', '佛山', '深圳', '珠海', '中山', '东莞', ' 汕头', '江门', '肇庆', '惠州', '茂名', '湛江', '梅州', '清远', '韶关', '河源', '揭阳', '云浮', '汕尾', '潮州']
+      Tep: '全部',
+      choseList: ['全部', '广州', '佛山', '深圳', '珠海', '中山', '东莞', ' 汕头', '江门', '肇庆', '惠州', '茂名', '湛江', '梅州', '清远', '韶关', '河源', '揭阳', '云浮', '汕尾', '潮州'],
+      foodList: [
+        { Tep: '广州', name: '九龙冰室', content: '一口西多士、香港炸豆腐、杨枝甘露......', tep: ['休闲', '港式'], logo: require('@/assets/img/food/logo/jl.png') },
+        { Tep: '广州', name: '坚记面馆', content: '牛腩捞伊面、大肠捞伊面、竹升面', tep: ['美食', '传统', '正宗'], logo: require('@/assets/img/food/logo/jian.png') },
+        { Tep: '广州', name: '炳胜品味', content: '豉油皇鹅肠、秘制黑叉烧、芝麻糊双皮奶......', tep: ['美食', '家常'], logo: require('@/assets/img/food/logo/bs.png') },
+        { Tep: '广州', name: '常来小聚', content: '鱼香茄子煲、客家豆腐煲、腊味煲仔饭.....', tep: ['美食', '客家', '平价'], logo: require('@/assets/img/food/logo/cl.png') },
+        { Tep: '佛山', name: '校长家味浓·私房菜农庄', content: '香芋碌鹅、校长螺肉粥、秘制酸菜大肠头......', tep: ['美食', '粤式'], logo: require('@/assets/img/food/logo/xz.png') },
+        { Tep: '佛山', name: '有记', content: '反沙菠萝、白切猪手、秘制茄子......', tep: ['新式', '美食'], logo: require('@/assets/img/food/logo/yj.png') }
+      ],
+      showList: []
     }
   },
   methods: {
-    goto () {
-      this.$router.push({ path: '/shopsDetail' })
+    goto (val) {
+      this.$router.push({ path: '/shopsDetail?key=' + val })
+    },
+    change (index) {
+      this.choseIndex = index
+      this.Tep = this.choseList[index]
+      if (index === 0) {
+        this.showList = this.foodList
+      } else {
+        this.showList = this.foodList.filter(item => item.Tep === this.Tep)
+      }
     }
+  },
+  created () {
+    this.showList = this.foodList
   }
 }
 </script>
 
 <template>
   <div class="shops">
-    <payHead>收藏路线</payHead>
+    <payHead>收藏店铺</payHead>
     <div class="chose">
-        <div v-for="(item, index) in choseList" :key="index" :class="{'active': choseIndex === index}" @click="choseIndex = index">{{ item }}</div>
+        <div v-for="(item, index) in choseList" :key="index" :class="{'active': choseIndex === index}" @click="change(index)">{{ item }}</div>
     </div>
     <div class="foodContent">
       <ul class="bigul">
-        <li class="bigli">
-          <div class="pic"></div>
+        <li class="bigli" v-for="(item,index) in showList" :key="index">
+          <div class="pic" :style="{ backgroundImage: 'url(' + item.logo + ')' }"></div>
           <div class="Txt">
-            <strong>九龙冰室</strong><br>
-            <p class="pp">广州市天河区天河路228号</p>
+            <strong>{{item.name}}</strong><br>
+            <p class="pp">{{item.content}}</p>
             <div class="lili">
               <ul>
-                <li class="lilisp">休闲</li>
-                <li class="lilisp">港式</li>
+                <li class="lilisp" v-for="(item,index) in item.tep" :key="index">{{ item }}</li>
               </ul>
             </div>
           </div>
-          <div class="go" @click="goto()"></div>
+          <div class="go" @click="goto(item.name)"></div>
         </li>
 
       </ul>
@@ -63,7 +84,7 @@ export default {
   flex-direction: row;
 
     list-style-type: none;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
 .Txt .lili{
   width: 100%;
@@ -72,6 +93,10 @@ export default {
 }
 .pp{
   margin:0px;
+  width: 200px;
+  height: 20px;
+  font-size: 13px;
+  overflow: hidden;
 }
 .go{
   width: 25px;

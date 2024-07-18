@@ -6,6 +6,11 @@ export default {
   data () {
     return {
       quanPhoto: ['餐饮票', '旅游票', '门票', '车票'],
+      quanList: [
+        { name: '竹香乌龙', time: '10', bigclass: '限定饮品', smallclass: '餐饮', price: '5', img: require('@/assets/img/quan/cheap2.png') },
+        { name: '坚记大排档', time: '10', bigclass: '限定菜品', smallclass: '餐饮', price: '6', img: require('@/assets/img/quan/dpd.png') },
+        { name: '天香茗阁', time: '10', bigclass: '限定饮品', smallclass: '餐饮', price: '8', img: require('@/assets/img/quan/txmg.png') }
+      ],
       activeIndex: 0,
       isQuanShow: true
 
@@ -70,58 +75,19 @@ export default {
     </div>
     <div class="quanShow" v-show="isQuanShow">
       <ul>
-        <li>
-          <div class="quanpc"></div>
+        <li v-for="(item,index) in quanList" :key="index">
+          <div class="quanpc" :style="{ backgroundImage: 'url(' + item.img + ')' }"></div>
           <div class="quantxt">
-            竹香乌龙
-            <p class="quanclass">餐饮优惠券</p>
-            <p class="quantiem">领取后10天可用</p>
-            <p class="quanprice">5折</p>
-            <p class="bigclass">限定饮品</p>
-          </div>
-        </li>
-        <li>
-          <div class="quanpc"></div>
-          <div class="quantxt">
-            竹香乌龙
-            <p class="quanclass">餐饮优惠券</p>
-            <p class="quantiem">领取后10天可用</p>
-            <p class="quanprice">5折</p>
-            <p class="bigclass">限定饮品</p>
-          </div>
-        </li>
-        <li>
-          <div class="quanpc"></div>
-          <div class="quantxt">
-            竹香乌龙
-            <p class="quanclass">餐饮优惠券</p>
-            <p class="quantiem">领取后10天可用</p>
-            <p class="quanprice">5折</p>
-            <p class="bigclass">限定饮品</p>
-          </div>
-        </li>
-        <li>
-          <div class="quanpc"></div>
-          <div class="quantxt">
-            竹香乌龙
-            <p class="quanclass">餐饮优惠券</p>
-            <p class="quantiem">领取后10天可用</p>
-            <p class="quanprice">5折</p>
-            <p class="bigclass">限定饮品</p>
-          </div>
-        </li>
-        <li>
-          <div class="quanpc"></div>
-          <div class="quantxt">
-            竹香乌龙
-            <p class="quanclass">餐饮优惠券</p>
-            <p class="quantiem">领取后10天可用</p>
-            <p class="quanprice">5折</p>
-            <p class="bigclass">限定饮品</p>
+            {{item.name}}
+            <p class="quanclass">{{item.smallclass}}优惠券</p>
+            <p class="quantiem">领取后{{item.time}}天可用</p>
+            <p class="quanprice">{{item.price}}折</p>
+            <p class="bigclass">{{item.bigclass}}</p>
           </div>
         </li>
       </ul>
     </div>
+    <div class="nofound" v-show="!isQuanShow"></div>
   </div>
 </template>
 
@@ -154,6 +120,7 @@ export default {
   position: relative;
   top: -82px;
   left: 270px;
+  font-size: 15px;
   /* background-color: #fff; */
 }
 .quanpc{
@@ -320,5 +287,15 @@ export default {
   background-image: url(../../assets/user/bgc.png);
   background-size: 100% 100%;
   background-repeat: no-repeat;
+}
+.nofound{
+  width: 177px;
+  height: 369px;
+  background-image: url(../../assets/img/toast/NoQuan.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 20px;
+  left: 106px;
 }
 </style>

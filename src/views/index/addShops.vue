@@ -7,6 +7,28 @@ export default {
     goPay () {
       this.$router.push('/pay')
     }
+  },
+  data () {
+    return {
+      piaoList: [
+        { img: require('@/assets/img/samll/mian.png'), name: '爱西干面', id: 1 },
+        { img: require('@/assets/img/samll/dscf.png'), name: '红米肠', id: 2 },
+        { img: require('@/assets/img/samll/tdh.png'), name: '豆花甜汤', id: 3 },
+        { img: require('@/assets/img/samll/zq.png'), name: '老牌粽球', id: 4 },
+        { img: require('@/assets/img/samll/yu.png'), name: '阿周鱼生', id: 5 },
+        { img: require('@/assets/img/samll/hg.png'), name: '牛肉火锅', id: 5 },
+        { img: require('@/assets/img/samll/hjsm.png'), name: '蟹黄烧卖', id: 5 },
+        { img: require('@/assets/img/samll/guo.png'), name: '鲎粿', id: 5 },
+        { img: require('@/assets/img/samll/sgz.png'), name: '砂锅粥', id: 5 }
+      ],
+      list: [
+        { img: require('@/assets/img/piao/piao1.png') },
+        { img: require('@/assets/img/piao/piao2.png') },
+        { img: require('@/assets/img/piao/piao3.png') },
+        { img: require('@/assets/img/piao/piao4.png') }
+
+      ]
+    }
   }
 }
 </script>
@@ -16,20 +38,13 @@ export default {
     <payHead>票据浏览</payHead>
     <div class="piao">
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white" :show-indicators="false">
-        <van-swipe-item><div class="pp"></div></van-swipe-item>
-        <van-swipe-item><div class="pp"></div></van-swipe-item>
-        <van-swipe-item><div class="pp"></div></van-swipe-item>
-        <van-swipe-item><div class="pp"></div></van-swipe-item>
+        <van-swipe-item v-for="(item, index) in list" :key="index"><div class="pp" :style="{ backgroundImage: 'url(' + item.img + ')' }"></div></van-swipe-item>
       </van-swipe>
     </div>
     <div class="piaologo"></div>
     <div class="piaoshow">
       <ul>
-        <li class="All"><div class="ppc"></div><p>爱希干面</p></li>
-        <li class="All"><div class="ppc"></div><p>爱希干面</p></li>
-        <li class="All"><div class="ppc"></div><p>爱希干面</p></li>
-        <li class="All"><div class="ppc"></div><p>爱希干面</p></li>
-        <li class="All"><div class="ppc"></div><p>爱希干面</p></li>
+        <li class="All" v-for="(item,index) in piaoList" :key="index"><div class="ppc" :style="{ backgroundImage: 'url(' + item.img + ')' }"></div><p>{{ item.name }}</p></li>
       </ul>
     </div>
     <div class="when" @click="goPay()"></div>

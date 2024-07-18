@@ -114,7 +114,6 @@ export default {
       this.pickerShowGo = false
     },
     onConfirmData (value) {
-      console.log(value)
       this.currentDate = value
       this.newShow = true
       this.pickerShowDate = false

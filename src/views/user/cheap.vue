@@ -1,6 +1,5 @@
 <script>
 import payHead from '@/components/UserPlug/head.vue'
-
 export default {
   name: 'cheap',
   components: { payHead },
@@ -8,12 +7,32 @@ export default {
     return {
       activeIndex: 0,
       buttonitem: ['未使用', '已使用', '已过期'],
-      searchTxt: ''
+      quanList: [
+        { name: '竹香乌龙', time: '10', bigclass: '限定饮品', smallclass: '餐饮', price: '5', img: require('@/assets/img/quan/cheap2.png') },
+        { name: '坚记大排档', time: '10', bigclass: '限定菜品', smallclass: '餐饮', price: '6', img: require('@/assets/img/quan/dpd.png') },
+        { name: '天香茗阁', time: '10', bigclass: '限定饮品', smallclass: '餐饮', price: '8', img: require('@/assets/img/quan/txmg.png') }
+      ],
+      searchTxt: '',
+      useShow: true
     }
   },
   methods: {
     activateItem (index) {
       this.activeIndex = index
+      if (index !== 0) {
+        this.useShow = false
+      } else {
+        this.useShow = true
+      }
+    },
+    exchange () {
+      if (this.searchTxt === '666') {
+        this.$toast('兑换成功')
+        this.quanList.push({ name: '竹香乌龙', time: '10', bigclass: '限定饮品', smallclass: '餐饮', price: '5', img: require('@/assets/img/quan/cheap2.png') })
+        this.searchTxt = ''
+      } else {
+        this.$toast('兑换码不正确')
+      }
     }
   }
 }
@@ -27,18 +46,18 @@ export default {
     </div>
     <div class="cheapSearch">
       <input type="text"   placeholder="请输入兑换码" v-model="searchTxt" >
-      <div class="searchIcon">兑换</div>
+      <div class="searchIcon" @click="exchange">兑换</div>
     </div>
-    <div class="cheapShow">
+    <div class="cheapShow" v-show="useShow">
       <ul>
-        <li>
-          <div class="quanpc"></div>
+        <li v-for="(item,index) in quanList" :key="index">
+          <div class="quanpc" :style="{ backgroundImage: 'url(' + item.img + ')' }"></div>
           <div class="quantxt">
-            竹香乌龙
-            <p class="quanclass">餐饮优惠券</p>
-            <p class="quantiem">领取后10天可用</p>
-            <p class="quanprice">5折</p>
-            <p class="bigclass">限定饮品</p>
+            {{item.name}}
+            <p class="quanclass">{{item.smallclass}}优惠券</p>
+            <p class="quantiem">领取后{{item.time}}天可用</p>
+            <p class="quanprice">{{item.price}}折</p>
+            <p class="bigclass">{{item.bigclass}}</p>
           </div>
         </li>
 

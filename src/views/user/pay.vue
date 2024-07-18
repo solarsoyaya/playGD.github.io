@@ -1,5 +1,6 @@
 <script>
 import payHead from '@/components/UserPlug/head.vue'
+import { Toast } from 'vant'
 export default {
   name: 'Pay',
   components: { payHead },
@@ -18,6 +19,10 @@ export default {
       } else {
         this.PayShow = false
       }
+    },
+    back () {
+      Toast.success('支付成功')
+      this.$router.push('/user')
     }
   }
 }
@@ -51,7 +56,7 @@ export default {
             </div>
             <div class="listmoney">
               需要付款 ￥892
-              <div class="PayButton">付款</div>
+              <div class="PayButton" @click="back()">付款</div>
             </div>
           </div>
         </li>
