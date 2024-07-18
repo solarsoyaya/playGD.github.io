@@ -1,24 +1,17 @@
-# demo-one
+# 玩转广东项目部署
 
-## Project setup
-```
-npm install
-```
+本项目是使用vue-cli框架搭建的vue2
+因为没有搭建服务器，并没有收集更多的数据和ui绘图比较麻烦，所以home页面的推荐中可以点击的只有 ***顺德美食***和对应的***双皮奶***才会弹开介绍。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+在添加新的旅程的功能中，也只有固定的一种搭配，请谅解。
 
-### Compiles and minifies for production
+### 该项目部署
 ```
-npm run build
+1.npm install 
+2.npm run dev
+3.在浏览器中打开http://localhost:8080即可看到项目
+
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
